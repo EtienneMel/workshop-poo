@@ -3,19 +3,38 @@
 namespace Strings;
 
 use PHPUnit\Framework\TestCase;
-include 'Str.php';
+
 
 class StrTest extends TestCase
 {
     public function testExo1(){
 
-        $string = (string) Str::on(my-string)
+        $string = (string) Str::on('my_string')
             ->replace('_', ' ')
             ->majFirstLetter()
             ->replace(' ', '')
             ->minFirstLetter();
 
         $this->assertSame('myString', $string);
+
     }
 
+    public function testExo2(){
+
+         $string = Str::on('myString')->camelCase()->toString();
+         $this->assertSame('myString', $string);
+    }
+
+    public function testExo3(){
+        $string = Str::on('myString')->camelCase()->toString();
+        $this->assertSame('myString', $string);
+
+    }
+
+
 }
+
+// Objet : [POO] NOM PRENOM
+//Corps : adresse de notre repository
+//Auto évaluation /20
+//1 commit par exercice

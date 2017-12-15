@@ -16,23 +16,38 @@ class Str
         return $this->string;
     }
 
-    public static function on($string){
+    public static function on($string)
+    {
         return new self($string);
     }
 
-    public function replace($search, $replace){
+    public function replace($search, $replace)
+    {
         $this->string = str_replace($search, $replace, $this->string);
-
         return $this;
     }
 
-    public function majFirstLetter($string){
-        $this->string = ucwords($string);
+    public function majFirstLetter(){
+        $this->string = ucwords($this->string);
         return $this;
     }
 
-    public function minFirstLetter($string){
-        $this->string = lcfirst($string);
+    public function minFirstLetter(){
+        $this->string = lcfirst($this->string);
         return $this;
     }
+
+    public function camelCase(){
+            $needle = array('-', '_',);
+            $this->replace($needle, ' ');
+            $this->majFirstLetter();
+            $this->replace(' ', '');
+            $this->minFirstLetter();
+            return $this;
+    }
+
+    public function toString(){
+        return $this->__toString();
+    }
+
 }
