@@ -21,6 +21,9 @@ class Contenu
         if($this->_name == 'toCamelCase'){
             $this->setString($this->camelCase($string[0]));
         }
+        if($this->_name == 'toSnakeCase'){
+        $this->setString($this->snakeCase($string[0]));
+    }
 
     }
 
@@ -53,11 +56,24 @@ class Contenu
 
         $string = $this->replace($needle, ' ', $string);
         $string = $this->majFirstLetter($string);
-        $string = $this->replace(' ', '', $string);
+        $string = $this->replace(' ', '_', $string);
         $string = $this->minFirstLetter($string);
 
         return $string;
 
+    }
+
+    public function snakeCase($string)
+    {
+        $pattern = '/(.)(?=[A-Z])/';
+        $replacement = '$1_';
+
+        $string = $this->replace(' ', '', $string);
+        $string = preg_replace($pattern, $replacement, $string);
+        $string = $this->replace('-', '_', $string);
+        $string = $this->textMinuscules($string);
+
+        return $string;
 
     }
     //Transformation
@@ -75,5 +91,9 @@ class Contenu
     public function minFirstLetter($string)
     {
         return lcfirst($string);
+    }
+    public function textMinuscules($string)
+    {
+        return strtolower($string);
     }
 }
