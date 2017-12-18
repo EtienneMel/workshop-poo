@@ -11,8 +11,8 @@ class StrTest extends TestCase
     public function testExo4(){
 
 
-         $string = Str::toSlugCase('my String');
-         $this->assertSame('my-string', $string);
+         $string = Str::toTitleCase('myString');
+         $this->assertSame('MyString', $string);
     }
 
 

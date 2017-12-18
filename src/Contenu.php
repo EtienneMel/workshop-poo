@@ -18,18 +18,19 @@ class Contenu
     {
         $this->setName($name);
 
-        if($this->_name == 'toCamelCase')
+        if($this->_name == 'toCamelCase'|| $this->_name === 'toStudlyCase' || $this->_name === 'toTitleCase')
         {
-            $this->setString($this->camelCase($string[0]));
+            $this->setString($this->camelEtStudlyCase($string[0]));
         }
-        if($this->_name == 'toSnakeCase' || $this->_name == 'toSlugCase')
+        if($this->_name === 'toSnakeCase' || $this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
         {
-        $this->setString($this->snakeEtSlugCase($string[0]));
+            $this->setString($this->snakeEtSlugCase($string[0]));
         }
 
     }
 
     //SETTER & GETTERS
+
     public function getString()
     {
         return $this->_string;
@@ -52,17 +53,19 @@ class Contenu
 
     //FONCTION MODIF DE CASSE
 
-    public function camelCase($string)
+    public function camelEtStudlyCase($string)
     {
         $needle = array('-', '_',);
 
         $string = $this->replace($needle, ' ', $string);
         $string = $this->majFirstLetter($string);
-        $string = $this->replace(' ', '_', $string);
-        $string = $this->minFirstLetter($string);
+        $string = $this->replace(' ', '', $string);
 
+        if($this->_name === 'toCamelCase')
+            {
+                $string = $this->minFirstLetter($string);
+            }
         return $string;
-
     }
 
     public function snakeEtSlugCase($string)
@@ -73,19 +76,22 @@ class Contenu
         $string = $this->replace(' ', '', $string);
         $string = $this->replacePattern($pattern, $replacement, $string);
 
-        if($this->_name === 'toSnakeCase'){
-            $string = $this->replace('-', '_', $string);
-        }else{
-            $string = $this->replace('_', '-', $string);
-        }
+            if($this->_name === 'toSnakeCase')
+            {
+                $string = $this->replace('-', '_', $string);
+            }
+            else if($this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
+            {
+                $string = $this->replace('_', '-', $string);
+            }
 
         $string = $this->textMinuscules($string);
 
         return $string;
 
     }
-    //Transformation
 
+    //Transformation
 
     public function replacePattern($pattern, $replacement, $string)
     {
