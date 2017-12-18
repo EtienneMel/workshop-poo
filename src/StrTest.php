@@ -8,11 +8,11 @@ class StrTest extends TestCase
 {
 
 
-    public function testExo3(){
+    public function testExo4(){
 
 
-         $string = Str::toSnakeCase('My String');
-         $this->assertSame('my_string', $string);
+         $string = Str::toSlugCase('my String');
+         $this->assertSame('my-string', $string);
     }
 
 

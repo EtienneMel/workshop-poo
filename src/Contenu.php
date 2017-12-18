@@ -18,12 +18,14 @@ class Contenu
     {
         $this->setName($name);
 
-        if($this->_name == 'toCamelCase'){
+        if($this->_name == 'toCamelCase')
+        {
             $this->setString($this->camelCase($string[0]));
         }
-        if($this->_name == 'toSnakeCase'){
-        $this->setString($this->snakeCase($string[0]));
-    }
+        if($this->_name == 'toSnakeCase' || $this->_name == 'toSlugCase')
+        {
+        $this->setString($this->snakeEtSlugCase($string[0]));
+        }
 
     }
 
@@ -63,14 +65,20 @@ class Contenu
 
     }
 
-    public function snakeCase($string)
+    public function snakeEtSlugCase($string)
     {
         $pattern = '/(.)(?=[A-Z])/';
         $replacement = '$1_';
 
         $string = $this->replace(' ', '', $string);
-        $string = preg_replace($pattern, $replacement, $string);
-        $string = $this->replace('-', '_', $string);
+        $string = $this->replacePattern($pattern, $replacement, $string);
+
+        if($this->_name === 'toSnakeCase'){
+            $string = $this->replace('-', '_', $string);
+        }else{
+            $string = $this->replace('_', '-', $string);
+        }
+
         $string = $this->textMinuscules($string);
 
         return $string;
@@ -78,6 +86,11 @@ class Contenu
     }
     //Transformation
 
+
+    public function replacePattern($pattern, $replacement, $string)
+    {
+        return preg_replace($pattern, $replacement, $string);
+    }
     public function replace($search, $replace, $string)
     {
         return str_replace($search, $replace, $string);
