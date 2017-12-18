@@ -4,10 +4,9 @@ namespace Strings;
 
 use PHPUnit\Framework\TestCase;
 
-
 class StrTest extends TestCase
 {
-    public function testExo1(){
+    /*public function testExo1(){
 
         $string = (string) Str::on('my_string')
             ->replace('_', ' ')
@@ -17,19 +16,19 @@ class StrTest extends TestCase
 
         $this->assertSame('myString', $string);
 
-    }
+    }*/
 
     public function testExo2(){
 
-         $string = Str::on('myString')->camelCase()->toString();
+         $string = Str::toCamelCase('My String');
          $this->assertSame('myString', $string);
     }
 
-    public function testExo3(){
+    /*public function testExo3(){
         $string = Str::on('myString')->camelCase()->toString();
         $this->assertSame('myString', $string);
 
-    }
+    }*/
 
 
 }
