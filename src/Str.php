@@ -15,12 +15,6 @@ class Str
         $this->modificateur = new Contenu($string);
     }
 
-    public static function on($string)
-    {
-        return new self($string);
-
-    }
-
     public function __call($name, $arguments)
     {
         $this->modificateur->attribution($name);

@@ -27,7 +27,6 @@ class Contenu
         }
 
     }
-
     //SETTERS & GETTERS
 
     public function getString()
