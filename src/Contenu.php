@@ -25,11 +25,13 @@ class Contenu
         if($this->_name === 'toSnakeCase' || $this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
         {
             $this->setString($this->snakeEtSlugCase($string[0]));
+        } else {
+            $this->setString($string);
         }
 
     }
 
-    //SETTER & GETTERS
+    //SETTERS & GETTERS
 
     public function getString()
     {
@@ -46,7 +48,7 @@ class Contenu
         return $this->_name;
     }
 
-    public function setName($name): void
+    public function setName($name)
     {
         $this->_name = $name;
     }
@@ -68,23 +70,30 @@ class Contenu
         return $string;
     }
 
+
     public function snakeEtSlugCase($string)
     {
         $pattern = '/(.)(?=[A-Z])/';
-        $replacement = '$1_';
+        $replacement = '$1 ';
 
-        $string = $this->replace(' ', '', $string);
+        $pattern2 = '/(.)\\1+(?!\\1)/';
+        $replacement2 = '$1';
+
+        $needle = array(' ', '-','_');
+
+        if($this->_name === 'toSnakeCase')
+        {
+            $needle2 = '_';
+        }
+        else if($this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
+        {
+            $needle2 = '-';
+        }
+
         $string = $this->replacePattern($pattern, $replacement, $string);
-
-            if($this->_name === 'toSnakeCase')
-            {
-                $string = $this->replace('-', '_', $string);
-            }
-            else if($this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
-            {
-                $string = $this->replace('_', '-', $string);
-            }
-
+        $string = $this->replace($needle, ' ', $string);
+        $string = $this->replacePattern($pattern2, $replacement2, $string);
+        $string = $this->replace(' ', $needle2, $string);
         $string = $this->textMinuscules($string);
 
         return $string;
