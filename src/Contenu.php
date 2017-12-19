@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: etiennemela
- * Date: 15/12/2017
- * Time: 14:07
- */
 
 namespace Strings;
 
@@ -14,19 +8,22 @@ class Contenu
     private $_string;
     private $_name;
 
-    public function __construct($string, $name)
+    public function __construct($string)
     {
+        $this->setString($this->textMinuscules($string));
+    }
+
+    public function attribution($name){
+
         $this->setName($name);
 
-        if($this->_name == 'toCamelCase'|| $this->_name === 'toStudlyCase' || $this->_name === 'toTitleCase')
+        if($this->_name === 'camelCase' ||$this->_name === 'studlyCase' || $this->_name === 'titleCase')
         {
-            $this->setString($this->camelEtStudlyCase($string[0]));
+            $this->camelEtStudlyCase($this->getString());
         }
-        if($this->_name === 'toSnakeCase' || $this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
+        else if($this->_name === 'snakeCase' ||$this->_name === 'slugCase' || $this->_name === 'kebabCase')
         {
-            $this->setString($this->snakeEtSlugCase($string[0]));
-        } else {
-            $this->setString($string);
+            $this->snakeEtSlugCase($this->getString());
         }
 
     }
@@ -63,11 +60,11 @@ class Contenu
         $string = $this->majFirstLetter($string);
         $string = $this->replace(' ', '', $string);
 
-        if($this->_name === 'toCamelCase')
+        if($this->_name === 'camelCase')
             {
                 $string = $this->minFirstLetter($string);
             }
-        return $string;
+        $this->setString($string);
     }
 
 
@@ -81,11 +78,11 @@ class Contenu
 
         $needle = array(' ', '-','_');
 
-        if($this->_name === 'toSnakeCase')
+        if($this->_name === 'snakeCase')
         {
             $needle2 = '_';
         }
-        else if($this->_name === 'toSlugCase' ||$this->_name === 'toKebabCase')
+        else if($this->_name === 'slugCase' ||$this->_name === 'kebabCase')
         {
             $needle2 = '-';
         }
@@ -96,7 +93,7 @@ class Contenu
         $string = $this->replace(' ', $needle2, $string);
         $string = $this->textMinuscules($string);
 
-        return $string;
+        $this->setString($string);
 
     }
 

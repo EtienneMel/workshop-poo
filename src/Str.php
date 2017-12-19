@@ -4,17 +4,31 @@ namespace Strings;
 
 class Str
 {
-    private static $string;
-
+    private $modificateur;
+    private $string;
 
     // MAGIC METHODS
 
-
-    public static function __callStatic($name, $string)
+    public function __construct($string)
     {
-        self::$string = new Contenu($string, $name);
-        return self::$string->getString();
+        $this->string = $string;
+        $this->modificateur = new Contenu($string);
+    }
+
+    public static function on($string)
+    {
+        return new self($string);
 
     }
 
+    public function __call($name, $arguments)
+    {
+        $this->modificateur->attribution($name);
+        return $this->modificateur->getString();
+    }
+
+    public function __toString()
+    {
+        return $this->string;
+    }
 }

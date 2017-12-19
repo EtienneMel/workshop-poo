@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class StrTest extends TestCase
 {
+
+
 /*Strings de test :
  * my_string
  * myString
@@ -14,11 +16,11 @@ class StrTest extends TestCase
  * My String
  */
 
-    public function testExo4(){
+    public function testExo6(){
 
-        $string = Str::toSlugCase('My_String');
+        $str = Str::on('mY StrIng');
+        $string = $str->slugCase();
         $this->assertSame('my-string', $string);
-
     }
 
 }
